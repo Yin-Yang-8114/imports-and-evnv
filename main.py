@@ -1,9 +1,10 @@
 from datetime import date
 from rich.console import Console
 from rich.table import Table
-expenses = [{"date": "2026-08-10", "title": "Notebook", "category": "school", "amount": 24.90},{"date": "2026-08-11", "title": "Coffee", "category": "food", "amount": 12.00},]
 
 console = Console()
+
+expenses = [{"date": "2026-08-10", "title": "Notebook", "category": "school", "amount": 24.90},{"date": "2026-08-11", "title": "Coffee", "category": "food", "amount": 12.00},]
 
 
 def calculate_total(expenses):
@@ -15,20 +16,27 @@ def calculate_total(expenses):
 
 def show_expenses(expenses):
     table = Table(title="Expense Tracker")
-    table.add_column("Date", style="cyan")
-    table.add_column("Title", style="magenta")
-    table.add_column("Category", style="green")
-    table.add_column("Amount", justify="right", style="bold yellow")
+    table.add_column("Date")
+    table.add_column("Title")
+    table.add_column("Category")
+    table.add_column("Amount", justify="right")
 
     for item in expenses:
         table.add_row(item["date"],item["title"],item["category"],f"{item['amount']:.2f}")
+
     console.print(table)
+
     total = calculate_total(expenses)
-    console.print(f"[bold green]Total: {total:.2f} ILS[/bold green]\n")
+    console.print(f"Total: {total:.2f} ILS\n")
 
 
 def add_expense(expenses, title, amount, category):
-    new_item = {"date": date.today().isoformat(),"title": title,"amount": amount,"category": category}
+    new_item = {
+        "date": date.today().isoformat(),
+        "title": title,
+        "amount": amount,
+        "category": category
+    }
     expenses.append(new_item)
 
 
@@ -46,7 +54,6 @@ def main():
     if choice.lower() == 'y':
         ask_for_expense(expenses)
         show_expenses(expenses)
-
 
 
 main()
